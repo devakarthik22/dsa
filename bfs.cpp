@@ -9,6 +9,7 @@ vector <ll> dfs(map<ll,vector<ll>>&g,ll N){
     bool visited[N+1]={false};
     queue<ll> q;
     q.push(0);
+    visited[0]=true;
     while(!q.empty()){
         ll x=q.front();
         ans.pb(x);
