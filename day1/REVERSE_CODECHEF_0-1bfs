@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define pb push_back
+#define mp make_pair
+#define pi pair<ll,ll>
+using namespace std;
+int main() {
+    #ifndef ONLINE_JUDGE
+    freopen("a1.txt","r",stdin);
+    freopen ("a2.txt","w",stdout);
+    #endif
+    ll n,m;
+    cin>>n>>m;
+    vector<pair<ll,ll>> g[n+1];
+    vector<ll> dis(n+1,LLONG_MAX);
+    for(ll i=0;i<m;i++){
+        ll x,y;
+        cin>>x>>y;
+        g[x].pb(mp(y,0));
+        g[y].pb(mp(x,1));
+    }
+    deque<ll> q;
+    q.push_front(1);
+    dis[1]=0;
+    while(!q.empty()){
+        ll x=q.front();
+        q.pop_front();
+
+        for(auto nbr:g[x]){
+            if(dis[x]+nbr.second<dis[nbr.first]){
+                dis[nbr.first]=dis[x]+nbr.second;
+                if(dis[nbr.first]==dis[x]){
+                    q.push_front(nbr.first);
+                }
+                if(dis[nbr.first]!=dis[x]){
+                    q.push_back(nbr.first);
+                }
+            }
+        }
+    }
+   
+    if(dis[n]==LLONG_MAX)
+    cout<<"-1\n";
+    else  cout<<dis[n]<<"\n";
+
+}
